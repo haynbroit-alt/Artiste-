@@ -1,11 +1,13 @@
-# DOSSIER FONDATEUR — v0.1
+# LE REGISTRE DE L'ÉCLUSIER — v0.1
+
+> *Le registre, c'est le cahier où l'éclusier note chaque passage : qui est passé, quand, à quel niveau. Celui-ci note qui est cet artiste, et chaque décision qui le fait monter.*
 
 > **Statut :** document de travail. Rien n'est publié, rien n'est déposé.
 > Chaque section indique ce qui est **DÉCIDÉ** (validé par le fondateur), ce qui est **RECOMMANDÉ** (position de la direction artistique) et ce qui reste **À VALIDER**.
 >
 > **La devise du projet, si on ne devait garder qu'une phrase :**
 > ### *« Ce qui t'enferme peut aussi te faire monter. »*
-> C'est le principe d'une écluse : pour faire passer un bateau, on l'enferme, on fait monter l'eau, puis on ouvre la porte. Tout ce dossier découle de cette image.
+> C'est le principe d'une écluse : pour faire passer un bateau, on l'enferme, on fait monter l'eau, puis on ouvre la porte. Tout ce registre découle de cette image.
 
 ---
 
@@ -407,7 +409,7 @@ On ne copie pas Magritte. On reprend **l'esprit** : **un seul élément impossib
 ### Les étapes
 | Phase | Durée indicative | Objectif | Livrables |
 |---|---|---|---|
-| **0. Fondations** | Mois 0 à 3 | Savoir qui on crée | Dossier fondateur validé, nom vérifié et déposé, sessions vocales, 20 maquettes → 3 retenues, 3 prototypes de capuche |
+| **0. Fondations** | Mois 0 à 3 | Savoir qui on crée | Registre validé, nom vérifié et déposé, sessions vocales, 20 maquettes → 3 retenues, 3 prototypes de capuche |
 | **1. Silence signé** | Mois 3 à 4 | Faire exister le symbole avant la musique | Contenus courts : une écluse, un feu rouge, la silhouette de profil. **Aucune explication.** |
 | **2. Carte d'identité** | Mois 4 à 6 | Définir l'artiste | Single 1 : **« Accent »**. On ne commence pas par le tube : on commence par **qui il est**. |
 | **3. Élargir** | Mois 6 à 9 | Toucher le grand public | Single 2 : **« Sauf toi »** + clip (le plan signature, l'élément surréaliste) |
@@ -437,7 +439,7 @@ Elle reprend la boucle cognitive du fondateur (observer → comprendre → … �
 | Étape | Application au studio | Outil / rôle |
 |---|---|---|
 | **Observer** | Carnet de rue, veille musicale, écoute de ce qui sort | Humain + IA (synthèses de veille) |
-| **Comprendre** | Relire le dossier fondateur : ce morceau sert-il l'artiste ? | Dossier fondateur (ce document) |
+| **Comprendre** | Relire le Registre : ce morceau sert-il l'artiste ? | Le Registre (ce document) |
 | **Confronter** | La serrure tient-elle ? Existe-t-il déjà un morceau semblable ? | IA en sparring critique |
 | **Hypothèses** | 3 angles d'écriture, 3 directions de production | Humain + IA |
 | **Anticiper / prioriser** | Quel rôle dans l'album ? Quel potentiel ? | DA |
@@ -445,7 +447,7 @@ Elle reprend la boucle cognitive du fondateur (observer → comprendre → … �
 | **Simuler** | Maquette rapide (le « bac à sable ») | DAW, voix guide |
 | **Exécuter / revue humaine** | Production réelle si la grille est validée ; sinon retour en écriture | Producteur, ingénieur |
 | **Mesurer** | Grille qualité + test des 5 secondes | Panel d'écoute |
-| **Apprendre / réviser** | Mettre à jour la liste noire, les marqueurs, le dossier fondateur | Versionnage de ce document |
+| **Apprendre / réviser** | Mettre à jour la liste noire, les marqueurs, le Registre | Versionnage de ce document |
 | **Dreaming** | Une fois par mois : audit de cohérence, idées hors cadre | Session dédiée |
 
 ### Contrôle qualité : la grille
@@ -464,7 +466,7 @@ Chaque morceau est noté de 1 à 10 sur les 8 critères du brief : **originalit�
 | Écriture | Assistant IA (comme celui-ci) en **sparring** : contradiction, recherche de rimes, vérification des clichés | Il ne livre jamais un texte final |
 | Idéation musicale | Générateurs de musique IA : **uniquement pour des croquis internes** | Leurs conditions d'utilisation et leur situation juridique évoluent. **Aucune sortie officielle sans vérification des droits.** |
 | Moodboards | Générateurs d'images IA pour explorer | **Photos finales réelles.** Pas de visuel IA sur une pochette. |
-| Organisation | Ce dépôt Git : dossier fondateur versionné, une fiche par morceau | Historique de chaque décision |
+| Organisation | Ce dépôt Git : Registre versionné, une fiche par morceau | Historique de chaque décision |
 
 ### Droits et protection (Belgique)
 - **Nom et symbole :** dépôt au **BOIP** (Benelux), puis **EUIPO** (Union européenne), puis extension internationale via le système de Madrid (**OMPI/WIPO**) selon le développement.
@@ -487,4 +489,4 @@ Chaque morceau est noté de 1 à 10 sur les 8 critères du brief : **originalit�
 
 ---
 
-*Version 0.1. Ce document doit être contredit, raturé et réécrit. Un dossier qui n'évolue pas est un dossier mort.*
+*Version 0.1. Ce document doit être contredit, raturé et réécrit. Un registre où plus rien ne s'écrit, c'est une écluse fermée pour toujours.*
