@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" font-family="Helvetica, Arial, sans-serif">
+  <rect width="1200" height="760" fill="#E8E4DA"/>
+  <defs>
+    <!-- LE SAS : deux traits en L, deux coins ouverts (entrée / sortie), une ligne de niveau -->
+    <g id="sas-cadre" fill="none" stroke="#1C1C1E" stroke-width="10" stroke-linecap="square">
+      <path d="M15,68 L15,15 L68,15"/>
+      <path d="M85,32 L85,85 L32,85"/>
+    </g>
+  </defs>
+
+  <text x="40" y="52" font-size="22" font-weight="700" fill="#1C1C1E">PISTES DE SYMBOLE</text>
+  <text x="40" y="78" font-size="14" fill="#55524C">Recommandation : J1 « Le Sas ». J2 et J3 sont présentées pour comparaison.</text>
+
+  <!-- J1 -->
+  <g transform="translate(90,110) scale(2)">
+    <use href="#sas-cadre"/>
+    <line x1="32" y1="62" x2="68" y2="62" stroke="#2E9E62" stroke-width="10" stroke-linecap="square"/>
+  </g>
+  <text x="90" y="345" font-size="16" font-weight="700" fill="#1C1C1E">J1 · LE SAS (recommandé)</text>
+  <text x="90" y="367" font-size="13" fill="#55524C">Une chambre d'écluse vue de face : on entre</text>
+  <text x="90" y="384" font-size="13" fill="#55524C">par un coin, on sort par l'autre, plus haut.</text>
+
+  <!-- J2 -->
+  <g transform="translate(480,110) scale(2)" fill="none" stroke="#1C1C1E" stroke-width="10" stroke-linecap="square">
+    <path d="M12,85 L44,22"/>
+    <path d="M88,85 L56,22"/>
+  </g>
+  <text x="480" y="345" font-size="16" font-weight="700" fill="#1C1C1E">J2 · LES PORTES</text>
+  <text x="480" y="367" font-size="13" fill="#55524C">Les deux vantaux busqués d'une écluse.</text>
+  <text x="480" y="384" font-size="13" fill="#55524C">Risque : famille des chevrons, trop vue.</text>
+
+  <!-- J3 -->
+  <g transform="translate(870,110) scale(2)" fill="none" stroke="#1C1C1E" stroke-width="10" stroke-linecap="square">
+    <path d="M8,40 L40,40"/>
+    <path d="M40,62 L60,62"/>
+    <path d="M60,40 L92,40"/>
+  </g>
+  <text x="870" y="345" font-size="16" font-weight="700" fill="#1C1C1E">J3 · LA SENNE</text>
+  <text x="870" y="367" font-size="13" fill="#55524C">La rivière enterrée sous Bruxelles.</text>
+  <text x="870" y="384" font-size="13" fill="#55524C">Trop faible seule → sous-marque album 2.</text>
+
+  <line x1="40" y1="420" x2="1160" y2="420" stroke="#C9C3B5" stroke-width="1"/>
+  <text x="40" y="458" font-size="22" font-weight="700" fill="#1C1C1E">LE SYMBOLE VIVANT : LE NIVEAU MONTE</text>
+  <text x="40" y="484" font-size="14" fill="#55524C">Le cadre ne change jamais. Seule la ligne de niveau monte d'un album à l'autre. Il ne se ferme jamais : les deux coins restent ouverts.</text>
+
+  <g transform="translate(70,515)">
+    <g transform="scale(1.4)"><use href="#sas-cadre"/><line x1="32" y1="66" x2="68" y2="66" stroke="#1C1C1E" stroke-width="10" stroke-linecap="square"/></g>
+    <text x="0" y="170" font-size="14" font-weight="700" fill="#1C1C1E">Album 1 · Laissez-passer</text>
+    <text x="0" y="188" font-size="12" fill="#55524C">niveau bas : l'attente</text>
+  </g>
+  <g transform="translate(350,515)">
+    <g transform="scale(1.4)"><use href="#sas-cadre"/><line x1="32" y1="50" x2="68" y2="50" stroke="#1C1C1E" stroke-width="10" stroke-linecap="square"/></g>
+    <text x="0" y="170" font-size="14" font-weight="700" fill="#1C1C1E">Album 2 · La Senne</text>
+    <text x="0" y="188" font-size="12" fill="#55524C">niveau médian : la pression</text>
+  </g>
+  <g transform="translate(630,515)">
+    <g transform="scale(1.4)"><use href="#sas-cadre"/><line x1="32" y1="34" x2="68" y2="34" stroke="#1C1C1E" stroke-width="10" stroke-linecap="square"/></g>
+    <text x="0" y="170" font-size="14" font-weight="700" fill="#1C1C1E">Album 3 · Embouchure</text>
+    <text x="0" y="188" font-size="12" fill="#55524C">niveau haut : aligné sur la sortie</text>
+  </g>
+  <g transform="translate(910,515)">
+    <g transform="scale(0.95)"><use href="#sas-cadre"/><line x1="32" y1="34" x2="68" y2="34" stroke="#1C1C1E" stroke-width="10" stroke-linecap="square"/></g>
+    <g transform="translate(78,40) scale(0.95)"><use href="#sas-cadre"/><line x1="32" y1="66" x2="68" y2="66" stroke="#1C1C1E" stroke-width="10" stroke-linecap="square"/></g>
+    <text x="0" y="170" font-size="14" font-weight="700" fill="#1C1C1E">Après · L'échelle</text>
+    <text x="0" y="188" font-size="12" fill="#55524C">une nouvelle chambre commence</text>
+  </g>
+</svg>
