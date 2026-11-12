@@ -1,0 +1,1195 @@
+<title>Le Registre de l'Éclusier</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout : un registre d'écluse. Index des entrées à gauche (sticky), colonne de lecture à droite ; chaque section est une « entrée ». */
+:root {
+  --paper: #E4E7E1; --panel: #EEF0EB; --ink: #17201E; --canal: #3E4A47;
+  --muted: #56625E; --rule: #C3CAC3; --brick: #8C4A32; --pass: #23824F;
+  --f-display: "Archivo", "Arial Narrow", Arial, sans-serif;
+  --f-body: "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #141B19; --panel: #1B2421; --ink: #E3E6DF; --canal: #A9B8B2;
+  --muted: #93A19B; --rule: #2C3733; --brick: #D9937A; --pass: #4CC587; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --paper: #141B19; --panel: #1B2421; --ink: #E3E6DF; --canal: #A9B8B2;
+  --muted: #93A19B; --rule: #2C3733; --brick: #D9937A; --pass: #4CC587; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 16.5px; line-height: 1.62; }
+a { color: inherit; }
+a:focus-visible { outline: 2px solid var(--pass); outline-offset: 3px; }
+
+.wrap { max-width: 1240px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+/* HERO */
+.hero { border-bottom: 1px solid var(--rule); }
+.hero .wrap { padding-block: 56px 48px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px; align-items: end; }
+.ledger { font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 18px; margin-bottom: 28px; }
+.ledger b { color: var(--ink); font-weight: 500; }
+h1 { font-family: var(--f-display); font-stretch: 72%; font-weight: 800; text-transform: uppercase; font-size: clamp(44px, 8.4vw, 112px); line-height: .9; letter-spacing: -.01em; margin: 0; text-wrap: balance; }
+h1 span { display: block; color: var(--canal); }
+.devise { margin: 28px 0 0; max-width: 34ch; font-family: var(--f-display); font-stretch: 100%; font-weight: 500; font-size: clamp(20px, 2.4vw, 28px); line-height: 1.25; }
+.devise small { display: block; margin-top: 12px; font-family: var(--f-body); font-size: 15px; line-height: 1.55; color: var(--muted); font-weight: 400; max-width: 58ch; }
+.mark { width: clamp(120px, 18vw, 220px); height: auto; color: var(--ink); display: block; }
+.mark .lvl { stroke: var(--pass); animation: rise 1.6s cubic-bezier(.2,.7,.2,1) .2s both; }
+@keyframes rise { from { transform: translateY(14px); } to { transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .mark .lvl { animation: none; } }
+
+/* GRID */
+.grid { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 56px; padding-block: 40px 80px; }
+nav.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 20px); align-self: start; max-height: calc(100vh - 40px); overflow-y: auto; }
+.toc h3 { font-family: var(--f-mono); font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.toc a { display: grid; grid-template-columns: 26px 1fr; gap: 6px; padding: 5px 8px; text-decoration: none; font-size: 13.5px; line-height: 1.35; color: var(--muted); border-radius: 3px; }
+.toc a:hover { background: var(--panel); color: var(--ink); }
+.toc a.on { color: var(--ink); background: var(--panel); }
+.tc { font-family: var(--f-mono); font-size: 12px; color: var(--pass); }
+
+main { min-width: 0; max-width: 820px; }
+section { padding-block: 8px 48px; border-top: 1px solid var(--rule); scroll-margin-top: 16px; }
+section:first-child { border-top: 0; }
+.sh { padding-top: 28px; margin-bottom: 20px; }
+.code { font-family: var(--f-mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--pass); }
+h2 { font-family: var(--f-display); font-stretch: 80%; font-weight: 750; text-transform: uppercase; font-size: clamp(26px, 3.6vw, 38px); line-height: 1.02; margin: 6px 0 0; text-wrap: balance; }
+h3 { font-family: var(--f-display); font-stretch: 92%; font-weight: 700; font-size: 21px; line-height: 1.2; margin: 34px 0 10px; text-wrap: balance; }
+h4 { font-size: 16px; margin: 24px 0 8px; }
+p, li { max-width: 68ch; }
+ul, ol { padding-left: 1.2em; }
+li { margin: 4px 0; }
+strong { font-weight: 600; }
+em { color: var(--canal); }
+blockquote { margin: 22px 0; padding: 14px 0 2px 20px; border-left: 0; position: relative; color: var(--ink); }
+blockquote::before { content: ""; position: absolute; left: 0; top: 0; width: 44px; height: 4px; background: var(--pass); }
+blockquote p { margin: 0 0 10px; }
+code { font-family: var(--f-mono); font-size: .88em; background: var(--panel); padding: 1px 5px; border-radius: 3px; }
+hr { border: 0; border-top: 1px solid var(--rule); margin: 32px 0; }
+
+.tw { overflow-x: auto; margin: 18px 0 24px; border: 1px solid var(--rule); border-radius: 4px; background: var(--panel); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; line-height: 1.45; min-width: 560px; }
+th { font-family: var(--f-mono); font-weight: 500; font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+td { padding: 10px 12px; vertical-align: top; border-bottom: 1px solid var(--rule); }
+tr:last-child td { border-bottom: 0; }
+td p { margin: 0; }
+
+.chip { display: inline-block; font-family: var(--f-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; border: 1px solid currentColor; white-space: nowrap; vertical-align: 2px; }
+.chip.rec { color: var(--pass); }
+.chip.val { color: var(--brick); }
+.chip.dec { color: var(--ink); }
+
+figure.planche { margin: 22px 0 28px; }
+figure.planche svg { width: 100%; height: auto; display: block; border: 1px solid var(--rule); border-radius: 4px; }
+figcaption { font-family: var(--f-mono); font-size: 12px; color: var(--muted); margin-top: 8px; }
+
+footer { border-top: 1px solid var(--rule); }
+footer .wrap { padding-block: 28px 40px; font-family: var(--f-mono); font-size: 12px; color: var(--muted); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+
+@media (max-width: 900px) {
+  .grid { grid-template-columns: minmax(0, 1fr); gap: 8px; padding-top: 24px; }
+  nav.toc { position: static; max-height: none; border: 1px solid var(--rule); border-radius: 4px; padding: 14px; background: var(--panel); }
+  .toc ol { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+  .hero .wrap { grid-template-columns: minmax(0, 1fr); padding-block: 36px 32px; }
+  .mark { order: -1; width: 96px; }
+}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="ledger"><span>Registre n° <b>001</b></span><span>Port d'attache <b>Bruxelles</b></span><span>Version <b>0.1</b></span><span>État <b>document de travail</b></span></div>
+      <h1>Le Registre <span>de l'Éclusier</span></h1>
+      <p class="devise">« Ce qui t'enferme peut aussi te faire monter. »
+        <small>Le registre, c'est le cahier où l'éclusier note chaque passage : qui est passé, quand, à quel niveau. Celui-ci note qui est cet artiste, et chaque décision qui le fait monter. Rien n'est publié, rien n'est déposé : chaque entrée distingue ce qui est décidé, recommandé ou à valider.</small>
+      </p>
+    </div>
+    <svg viewBox="0 0 100 100" aria-hidden="true" class="mark"><g fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="square"><path d="M15,68 L15,15 L68,15"/><path d="M85,32 L85,85 L32,85"/></g><line class="lvl" x1="32" y1="66" x2="68" y2="66" stroke-width="10" stroke-linecap="square"/></svg>
+  </div>
+</header>
+
+<div class="wrap grid">
+  <nav class="toc" aria-label="Entrées du registre">
+    <h3>Entrées du registre</h3>
+    <ol>
+<li><a href="#lecture-rapide"><span class="tc">·</span>Lecture rapide</a></li>
+<li><a href="#decision-n0-qui-chante"><span class="tc">!</span>Décision n°0 : qui chante ?</a></li>
+<li><a href="#identite-generale"><span class="tc">A</span>Identité générale</a></li>
+<li><a href="#trois-noms-d-artiste"><span class="tc">B</span>Trois noms d'artiste</a></li>
+<li><a href="#origines-et-famille"><span class="tc">C</span>Origines et famille</a></li>
+<li><a href="#histoire-et-personnalite"><span class="tc">D</span>Histoire et personnalité</a></li>
+<li><a href="#adn-musical"><span class="tc">E</span>ADN musical</a></li>
+<li><a href="#signature-vocale"><span class="tc">F</span>Signature vocale</a></li>
+<li><a href="#philosophie-d-ecriture"><span class="tc">G</span>Philosophie d'écriture</a></li>
+<li><a href="#punchlines-et-storytelling"><span class="tc">H</span>Punchlines et storytelling</a></li>
+<li><a href="#la-capuche"><span class="tc">I</span>La capuche</a></li>
+<li><a href="#le-symbole"><span class="tc">J</span>Le symbole</a></li>
+<li><a href="#direction-vestimentaire"><span class="tc">K</span>Direction vestimentaire</a></li>
+<li><a href="#univers-visuel"><span class="tc">L</span>Univers visuel</a></li>
+<li><a href="#concepts-d-album"><span class="tc">M</span>Concepts d'album</a></li>
+<li><a href="#album-1-laissez-passer"><span class="tc">N</span>Album 1 : Laissez-passer</a></li>
+<li><a href="#strategie-de-developpement"><span class="tc">O</span>Stratégie de développement</a></li>
+<li><a href="#studio-assiste-par-l-ia"><span class="tc">P</span>Studio assisté par l'IA</a></li>
+<li><a href="#decisions-a-prendre"><span class="tc">Q</span>Décisions à prendre</a></li>
+    </ol>
+  </nav>
+  <main>
+<section id="lecture-rapide"><header class="sh"><span class="code">Synthèse</span><h2>LECTURE RAPIDE : CE QUE JE RECOMMANDE</h2></header><div class="tw"><table>
+<thead>
+<tr>
+<th>Élément</th>
+<th>Recommandation</th>
+<th>Statut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nom d'artiste</td>
+<td><strong>ÉCLUSE</strong> (alternative forte : SENNE)</td>
+<td><span class="chip val">À valider + vérification juridique</span></td>
+</tr>
+<tr>
+<td>Ancrage</td>
+<td>Bruxelles, <strong>le canal</strong> comme territoire symbolique</td>
+<td><span class="chip dec">Bruxelles décidé</span> <span class="chip rec">Canal recommandé</span></td>
+</tr>
+<tr>
+<td>Biographie</td>
+<td>Trois pistes, à choisir selon <strong>la vraie vie du performeur</strong></td>
+<td><span class="chip val">À VALIDER (décision n°0)</span></td>
+</tr>
+<tr>
+<td>Archétype</td>
+<td><strong>L'Éclusier</strong> : celui qui sait quand ça passe</td>
+<td><span class="chip rec">Recommandé</span></td>
+</tr>
+<tr>
+<td>Signature sonore</td>
+<td>5 marqueurs (le Sas, le Clang, le Sax, le Carillon, le Fond)</td>
+<td><span class="chip rec">Recommandé</span></td>
+</tr>
+<tr>
+<td>Symbole</td>
+<td><strong>LE SAS</strong> : un carré ouvert à deux coins + une ligne de niveau qui monte à chaque album</td>
+<td><span class="chip rec">Recommandé</span></td>
+</tr>
+<tr>
+<td>Capuche</td>
+<td><strong>La Capuche Carrée</strong> : construction à gousset, profil droit, couture de niveau</td>
+<td><span class="chip rec">Recommandé</span></td>
+</tr>
+<tr>
+<td>Couleur signature</td>
+<td><strong>Vert canal</strong> (pas le noir) + accent <strong>vert passage</strong></td>
+<td><span class="chip rec">Recommandé</span></td>
+</tr>
+<tr>
+<td>Album 1</td>
+<td><strong>LAISSEZ-PASSER</strong> : 13 titres dont les initiales épellent le titre</td>
+<td><span class="chip rec">Recommandé</span></td>
+</tr>
+<tr>
+<td>Arc discographique</td>
+<td><em>Laissez-passer</em> → <em>La Senne</em> → <em>Embouchure</em></td>
+<td><span class="chip rec">Recommandé</span></td>
+</tr>
+</tbody>
+</table></div></section>
+<section id="decision-n0-qui-chante"><header class="sh"><span class="code">Décision préalable</span><h2>QUI CHANTE ? (à trancher avant tout le reste)</h2></header><p>Le brief dit : <em>« pas un simple personnage qui génère des chansons avec l'IA »</em>, et il interdit les fausses histoires présentées comme des faits. Il faut donc trancher une question que le brief laisse ouverte :</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A. Un performeur humain réel</strong>, assisté par un studio IA</td>
+<td>Une vraie personne chante, rappe, donne les interviews et monte sur scène. L'IA sert d'équipe de travail.</td>
+<td><span class="chip rec">Recommandé</span> C'est la seule option compatible avec la scène, l'humour en interview, la carrière internationale et une biographie honnête.</td>
+</tr>
+<tr>
+<td>B. Un artiste virtuel assumé</td>
+<td>Le personnage est fictif et le dit clairement. La voix est synthétique, sous licence.</td>
+<td>Possible, mais le plafond est bas : pas de vraie scène, méfiance du public et des plateformes, et des droits de voix fragiles.</td>
+</tr>
+<tr>
+<td>C. Un hybride (personnage masqué incarné par un humain)</td>
+<td>Un humain porte une identité construite.</td>
+<td>Risqué : tire vers le « personnage anonyme », que le brief veut éviter.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Conséquence directe :</strong> si l'option A est retenue, <strong>la biographie ne s'invente pas, elle se révèle.</strong> Les trois pistes de la section C servent de grilles de lecture. On retiendra celle qui correspond à la vraie histoire du performeur. Sinon, on l'adapte, sans jamais la falsifier.</p></section>
+<section id="identite-generale"><header class="sh"><span class="code">Entrée A</span><h2>IDENTITÉ GÉNÉRALE</h2></header><p><strong>En une phrase :</strong> un rappeur-chanteur bruxellois qui écrit comme un observateur, chante comme un confident et pense comme un ingénieur. Il fait de chaque obstacle une chambre d'écluse : un lieu où l'on attend, où la pression monte, et d'où l'on sort plus haut.</p>
+<p><strong>Ce qui le distingue de ses références :</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Référence</th>
+<th>Ce qu'on retient (la qualité)</th>
+<th>Ce qu'on refuse (l'imitation)</th>
+<th>Notre réponse propre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Drake</td>
+<td>Le passage fluide rap ↔ R&amp;B, la vulnérabilité, les refrains qui collent</td>
+<td>Le spleen de luxe, l'esthétique de Toronto</td>
+<td>La vulnérabilité <strong>ouvrière</strong>, pas luxueuse. On parle de découvert bancaire, pas de penthouse.</td>
+</tr>
+<tr>
+<td>Stromae</td>
+<td>Les textes à plusieurs niveaux, les sujets sociaux, l'inattendu</td>
+<td>Le personnage théâtral, la chanson dansante, le costume-concept</td>
+<td><strong>Le danger n°1 du projet</strong> : être appelé « le nouveau Stromae » parce qu'il est belge et intelligent. Réponse : rester rap/R&amp;B, écrire depuis la rue et le canal, pas depuis le théâtre.</td>
+</tr>
+<tr>
+<td>Gims</td>
+<td>Les refrains fédérateurs, la puissance vocale, l'accessibilité</td>
+<td>Le grand spectacle vocal permanent, le look lunettes noires</td>
+<td>La puissance vient par vagues (le registre « La Crue », section F), pas en continu.</td>
+</tr>
+<tr>
+<td>Klyo, Ramzes</td>
+<td>—</td>
+<td>—</td>
+<td><strong>Je n'ai pas d'informations fiables sur ces deux références, je ne vais donc pas en inventer.</strong> Fondateur : décris en une phrase ce que tu prends chez chacun, ou partage deux morceaux. J'intégrerai ensuite.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Le positionnement :</strong> ni « rappeur conscient » donneur de leçons, ni « rappeur de charts » interchangeable. <strong>Un témoin qui a de l'humour.</strong></p></section>
+<section id="trois-noms-d-artiste"><header class="sh"><span class="code">Entrée B</span><h2>TROIS NOMS D'ARTISTE</h2></header><blockquote>
+<p>Aucun de ces noms n'a été vérifié juridiquement. Avant toute utilisation publique, il faut une recherche d'antériorité : BOIP (Benelux), EUIPO, WIPO, Spotify, Apple Music, Instagram, TikTok, YouTube et les noms de domaine.</p>
+</blockquote>
+<h3>B1. ÉCLUSE — <span class="chip rec">Recommandé</span></h3>
+<ul>
+<li><strong>Pourquoi c'est intéressant :</strong> une écluse <strong>t'enferme pour te faire monter</strong>. C'est exactement l'idée du fondateur (« les épreuves deviennent le chemin »), mais dans un objet réel, concret, filmable. On n'a plus besoin d'une métaphore abstraite.</li>
+<li><strong>Ce qui le rend différent :</strong> aucun nom du rap francophone ne vient de l'ingénierie hydraulique. Le nom est ancré dans Bruxelles : le canal Bruxelles-Charleroi traverse la ville et sépare symboliquement des quartiers et des mondes sociaux.</li>
+<li><strong>Avantages :</strong> tout l'univers en découle (symbole, capuche, scénographie, album). La prononciation est possible en anglais (« ay-klooz »). On entend un écho de <em>exclusive</em> et de <em>eclipse</em>.</li>
+<li><strong>Risques :</strong> le mot sonne technique, un peu froid. <em>Mitigation :</em> l'écrire en capitales (ÉCLUSE) et laisser le public trouver un diminutif (« Clu »). Ne jamais expliquer le nom trop tôt : laisser la devise faire le travail.</li>
+<li><strong>Développement :</strong> premier contenu public, une seule image (une écluse, un feu rouge) avec la devise. Pas d'explication.</li>
+</ul>
+<h3>B2. SENNE — alternative forte</h3>
+<ul>
+<li><strong>Pourquoi :</strong> la Senne est la rivière de Bruxelles, <strong>enterrée</strong> sous la ville au XIXᵉ siècle. Elle coule toujours, invisible. C'est le mystère, la capuche, ce qui est caché sous la surface.</li>
+<li><strong>Différence :</strong> « Senne » se prononce comme <strong>« scène »</strong>. Chaque affiche fait un double sens (« SENNE en concert »). La confusion avec la Seine devient une provocation identitaire : <em>« Pas la Seine. La Senne. »</em></li>
+<li><strong>Risques :</strong> on va le confondre avec la Seine, donc avec Paris, le contraire de l'effet voulu. Le jeu de mots peut s'user.</li>
+<li><strong>Recommandation :</strong> <strong>garder SENNE comme titre du deuxième album</strong> plutôt que comme nom d'artiste. La phrase « Pas la Seine, la Senne » devient un morceau de l'album 1 (voir section N).</li>
+</ul>
+<h3>B3. ORÉE</h3>
+<ul>
+<li><strong>Pourquoi :</strong> l'orée, c'est la lisière, le seuil entre deux mondes. Le mot est court, beau, facile à prononcer partout (« o-ré »).</li>
+<li><strong>Risques :</strong> trop doux pour le rap, plus « chanteuse folk » que « rappeur ». Le nom est probablement déjà pris par de petits projets.</li>
+<li><strong>Verdict honnête :</strong> <strong>idée moyenne pour ce projet.</strong> Elle porte le thème mais pas le caractère. Je la garde comme option de repli ou comme nom d'un label maison.</li>
+</ul></section>
+<section id="origines-et-famille"><header class="sh"><span class="code">Entrée C</span><h2>TROIS PISTES D'IDENTITÉ GÉOGRAPHIQUE ET FAMILIALE</h2></header><blockquote>
+<p><strong>Règle :</strong> ce sont des <strong>grilles crédibles</strong>, pas des vérités. On retient celle qui correspond au vrai performeur (décision n°0). Une piste ne doit jamais être un assemblage décoratif de nationalités.</p>
+</blockquote>
+<h3>C1. « Le Canal » — Molenbeek / Anderlecht, famille d'origine marocaine (Rif)</h3>
+<ul>
+<li><strong>Culture :</strong> darija ou tamazight à la maison, français dans la rue. Scolarité possible en école néerlandophone, un choix fréquent à Bruxelles, d'où un enfant <strong>trilingue</strong>. Cassettes de chaâbi et de raï du père, gnaoua lors des fêtes.</li>
+<li><strong>Apport musical :</strong> modes et ornementations du Maghreb, percussions (bendir, qraqeb) traitées en électronique.</li>
+<li><strong>Avantages :</strong> le canal est sa vraie frontière quotidienne. Le trilinguisme est un atout rare.</li>
+<li><strong>Risques :</strong> l'image médiatique de Molenbeek. <strong>Interdiction absolue de l'exploiter comme décor dramatique.</strong> On montre la vie, pas le fait divers. Le profil belgo-marocain est déjà bien représenté dans le rap belge, il faudra s'en distinguer.</li>
+</ul>
+<h3>C2. « Matongé » — Ixelles, famille d'origine congolaise</h3>
+<ul>
+<li><strong>Culture :</strong> églises congolaises de Bruxelles (gospel, harmonies, chœurs), rumba et ndombolo des parents, lingala dans les expressions.</li>
+<li><strong>Apport musical :</strong> les harmonies vocales gospel deviennent sa marque. Guitares rumba en contrepoint des 808.</li>
+<li><strong>Avantages :</strong> une base vocale très forte, un lien naturel avec Kinshasa, Brazzaville et l'Afrique francophone.</li>
+<li><strong>Risques :</strong> profil proche d'artistes belges déjà installés. La comparaison sera immédiate, il faut que la musique se démarque dès le premier titre.</li>
+</ul>
+<h3>C3. « Le Pays Noir » — de Charleroi à Bruxelles, une famille de la mine — <span class="chip rec">La plus originale</span></h3>
+<ul>
+<li><strong>Culture :</strong> l'histoire réelle de l'immigration belge. Les Italiens arrivent pour le charbon après l'accord belgo-italien de 1946, les Marocains après l'accord de 1964. <strong>Deux grands-pères, deux langues, la même mine.</strong> Arrivée à Bruxelles à l'adolescence.</li>
+<li><strong>Apport musical :</strong> mélodie italienne (le bel canto des grands-mères), modes maghrébins, mémoire ouvrière (fanfares, harmonies de mineurs).</li>
+<li><strong>Avantages :</strong> ce n'est pas un assemblage, <strong>c'est l'histoire de la Belgique.</strong> Elle donne au projet une profondeur historique que personne n'a dans le rap francophone actuel.</li>
+<li><strong>Risques :</strong> elle ne vaut <strong>que si elle est vraie</strong> pour le performeur. Ne jamais utiliser l'image du « diamant né sous la pression du charbon » : c'est un cliché.</li>
+</ul></section>
+<section id="histoire-et-personnalite"><header class="sh"><span class="code">Entrée D</span><h2>HISTOIRE ET PERSONNALITÉ</h2></header><h3>Archétype : <strong>L'Éclusier</strong></h3>
+<p>L'éclusier, c'est celui qui sait <strong>quand</strong> ça passe. Il ne force pas les portes. Il attend que le niveau soit bon, puis il ouvre. C'est un caractère patient et ambitieux, observateur et provocateur, drôle et grave.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Dimension</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Qualités</strong></td>
+<td>Observation chirurgicale (il remarque la phrase que personne n'a entendue dans le tram). Patience stratégique. Humour sec, à la belge : autodérision et surréalisme. Loyauté.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Défauts</strong></td>
+<td>Il <strong>retient</strong> : ses émotions, ses rancunes, son eau. Perfectionnisme qui retarde. Orgueil discret. Méfiance qui peut virer à la froideur. Pardonne lentement.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Ambitions</strong></td>
+<td>Que Bruxelles ne soit plus « la banlieue de Paris » dans le rap francophone. Faire une œuvre qui tienne dans vingt ans. Faire monter les siens avec lui (l'écluse fait monter <strong>tout ce qui est dans la chambre</strong>).</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Contradictions</strong></td>
+<td>Il veut être vu mais porte une capuche. Il prêche la patience mais il est obsédé par le temps qui passe. Il critique l'argent mais aime les beaux objets bien faits. Il chante la famille mais c'est lui qui est parti.</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Valeurs</strong></td>
+<td>Travail bien fait (culture ouvrière). Dette envers les anciens. Honnêteté plutôt que confort. Ne jamais se moquer de plus faible que soi.</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Manière de parler</strong></td>
+<td>Phrases courtes, silences assumés. Il répond souvent à une question par une question. Belgicismes dosés (« septante », « nonante », « kot », « brol »), jamais en caricature. Ne hausse jamais le ton : il baisse la voix pour être écouté.</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Rapport à la célébrité</strong></td>
+<td>Méfiant. La capuche est une <strong>porte</strong> : il décide quand elle s'ouvre. Pas d'étalage de vie privée, mais beaucoup de vérité dans les chansons.</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Argent et réussite</strong></td>
+<td>« L'argent, c'est un niveau d'eau, pas une destination. » Il parle de découvert, d'intérim et d'aides familiales autant que de réussite. Refuse l'ego-trip de luxe ; l'ego-trip passe par <strong>l'intelligence</strong>.</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>Amour et famille</strong></td>
+<td>Pudique sur l'amour, profondément attaché à la famille, avec la culpabilité de celui qui est « passé » quand d'autres sont restés.</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>Vision du monde</strong></td>
+<td>Le monde est une suite d'écluses : des frontières, des langues, des classes sociales. On ne les supprime pas, on apprend à les passer, et on tient la porte pour les autres.</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Personnalité hors musique — exemples de ton (interview, réseaux)</h3>
+<ul>
+<li><em>« À Bruxelles, la capuche, c'est pas un style. C'est la météo. »</em></li>
+<li><em>« On me demande si je suis belge ou français. Je suis bruxellois. C'est une troisième réponse. »</em></li>
+<li><em>« Paris, c'est une très belle ville. On devrait en faire une capitale. »</em> (affectueux, jamais méprisant)</li>
+</ul></section>
+<section id="adn-musical"><header class="sh"><span class="code">Entrée E</span><h2>ADN MUSICAL</h2></header><h3>Le principe</h3>
+<p><strong>Grande liberté de genres, cinq marqueurs constants.</strong> Un morceau amapiano et un morceau orchestral doivent sonner comme le même artiste parce qu'ils partagent des <strong>marqueurs</strong>, pas un genre.</p>
+<h3>LES 5 MARQUEURS SONORES (la reconnaissance en 5 secondes)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Marqueur</th>
+<th>Description</th>
+<th>Pourquoi c'est à nous</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>LE SAS</strong></td>
+<td>Une transition signature : le son se « ferme » (filtre passe-bas, mono, quasi-silence, bruit d'eau), puis se rouvre en <strong>montant</strong> (pitch et filtre qui s'ouvrent sur 2 à 4 mesures). C'est l'écluse en son.</td>
+<td>Une structure, pas un effet à la mode. Il peut servir d'intro, de pont ou de passage refrain-couplet.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>LE CLANG</strong></td>
+<td>Une percussion issue d'un <strong>enregistrement de terrain original</strong> : les portes métalliques d'une écluse du canal, les chaînes, l'eau. Elle remplace la caisse claire sur certains temps.</td>
+<td>Le son nous appartient (aucun droit de sample), il est unique au monde et c'est Bruxelles.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>LE SAX</strong></td>
+<td>Le saxophone a été <strong>inventé par un Belge</strong>, Adolphe Sax, de Dinant. On utilise un saxophone baryton ou ténor <strong>traité</strong> (distordu, pitché, en nappe, en ligne de basse), jamais en mode « smooth jazz ».</td>
+<td>Un instrument national que personne n'a revendiqué dans les musiques urbaines.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>LE CARILLON</strong></td>
+<td>Des motifs mélodiques de cloches. La tradition du carillon flamand (Malines) est mondialement reconnue. Utilisé en intro, en hook instrumental, ou pitché en pluck.</td>
+<td>Cinématographique, belge, immédiatement identifiable.</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>LE FOND</strong></td>
+<td>Sur chaque refrain, la voix principale est <strong>doublée une octave en dessous</strong>, très bas, presque soufflée. C'est une sorte de chœur à une seule voix.</td>
+<td>Une signature vocale de production qui marche même sur un morceau commercial.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Règle d'usage :</strong> chaque morceau utilise <strong>au minimum 2 marqueurs et jamais les 5</strong>. Tous les cinq à la fois, ça devient un gimmick ; aucun, et l'identité disparaît.</p>
+<h3>Signature harmonique</h3>
+<ul>
+<li><strong>La pédale :</strong> une note de basse tenue pendant que les accords bougent au-dessus. Le niveau reste, les bateaux passent.</li>
+<li><strong>La lumière dorienne :</strong> une tonalité mineure avec la sixte majeure sur le refrain (couleur dorienne). C'est la mélancolie traversée par un rayon : « la lumière qui passe par la fente ».</li>
+<li><strong>Interdit :</strong> la modulation d'un ton vers le haut au dernier refrain (le cliché du « changement de vitesse »).</li>
+</ul>
+<h3>Palette de genres</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Cœur (80 %)</th>
+<th>Ouvertures (20 %, toujours au service d'un morceau)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rap, rap mélodique, R&amp;B, soul, hip-hop contemporain, pop urbaine</td>
+<td>Amapiano, afrobeats, UK garage, <strong>New Beat belge</strong> (l'héritage électronique belge de la fin des années 80, en clin d'œil, jamais en sample non autorisé), gospel, cordes orchestrales, modes maghrébins, rumba, sonorités caribéennes et latines</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Le spectre accessible ↔ audacieux</h3>
+<p>Chaque album contient un <strong>morceau-porte</strong> (accessible, refrain évident) et un <strong>morceau-chambre</strong> (expérimental, structure hors format). Le lien entre les deux, ce sont les marqueurs.</p></section>
+<section id="signature-vocale"><header class="sh"><span class="code">Entrée F</span><h2>SIGNATURE VOCALE</h2></header><blockquote>
+<p><strong>Une voix ne se décide pas, elle se découvre.</strong> Ce qui suit est une cible. Elle sera ajustée lors des sessions d'essai avec le performeur réel.</p>
+</blockquote>
+<p><strong>Cible :</strong> baryton léger avec accès au falsetto. Grain mat dans le grave, clair dans l'aigu.</p>
+<h3>Les trois registres (vocabulaire de studio commun)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Registre</th>
+<th>Usage</th>
+<th>Technique</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LE FOND</strong></td>
+<td>Intimité, confidences, couplets d'introspection</td>
+<td>Parlé-chanté, très près du micro, grave, presque sans vibrato</td>
+</tr>
+<tr>
+<td><strong>LE NIVEAU</strong></td>
+<td>Refrains mélodiques, R&amp;B</td>
+<td>Voix de poitrine médiane, harmonies empilées (inspiration gospel), passages en falsetto sur les fins de phrase</td>
+</tr>
+<tr>
+<td><strong>LA CRUE</strong></td>
+<td>Climax, scène, colère</td>
+<td>Pleine voix, rap placé <strong>sur</strong> le temps, plus tard dans le morceau</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Les tics signatures (à valider en session)</h3>
+<ul>
+<li><strong>La chute :</strong> les fins de phrases chantées descendent légèrement, comme un soupir maîtrisé.</li>
+<li><strong>Le retard :</strong> le rap se place volontairement <strong>derrière</strong> le temps, puis rattrape le temps d'un coup au moment fort. C'est la tension de l'écluse qui se relâche.</li>
+<li><strong>Pas d'ad-libs mots</strong> (« yeah », « skrrt »…). L'ad-lib signature est <strong>un souffle grave ou un fredonnement « mm »</strong>, doublé à l'octave.</li>
+</ul>
+<h3>Méthode de découverte</h3>
+<ol>
+<li>Trois sessions d'enregistrement du performeur sur le même texte dans les trois registres.</li>
+<li>On cherche <strong>la zone signature</strong> : les 4 à 5 notes où le timbre ne ressemble à personne.</li>
+<li>On écrit les refrains <strong>dans</strong> cette zone.</li>
+<li><strong>Test à l'aveugle</strong> : faire écouter 10 secondes à 10 personnes. Si on entend « on dirait X », on corrige.</li>
+</ol>
+<p><strong>Voix synthétiques :</strong> uniquement un modèle entraîné <strong>sur la voix du performeur lui-même</strong>, avec contrat écrit, pour les maquettes et les tests de mélodie. <strong>Jamais</strong> une voix clonée d'un tiers. <strong>Jamais</strong> une voix IA sur une sortie officielle sans décision explicite et sans mention.</p></section>
+<section id="philosophie-d-ecriture"><header class="sh"><span class="code">Entrée G</span><h2>PHILOSOPHIE D'ÉCRITURE</h2></header><h3>Le principe : <strong>chaque chanson a une serrure et une clé</strong></h3>
+<ul>
+<li><strong>La serrure :</strong> une question, une tension, une contradiction qui justifie l'existence du morceau. Pas de serrure, pas de chanson.</li>
+<li><strong>La clé :</strong> une <strong>phrase-charnière</strong>, placée en général dans le dernier tiers, qui change le sens de tout ce qui précède. À la réécoute, le morceau n'est plus le même.</li>
+</ul>
+<h3>Les règles</h3>
+<ol>
+<li><strong>Une image centrale par morceau.</strong> Pas de salade de métaphores. Si la chanson parle d'eau, elle ne parle pas aussi de feu et de guerre.</li>
+<li><strong>Écrire depuis le réel.</strong> Tenir un <strong>carnet de rue</strong> : phrases entendues dans le tram, au marché du Midi, au guichet. L'écriture part d'une observation, pas d'une citation inspirante.</li>
+<li><strong>La règle des trois niveaux :</strong></li>
+<li><em>Niveau 1 :</em> l'histoire, compréhensible à la première écoute.</li>
+<li><em>Niveau 2 :</em> le sens social ou humain, perçu à la deuxième écoute.</li>
+<li><em>Niveau 3 :</em> le message caché, réservé aux fans (voir H).</li>
+<li><strong>Le test du karaoké :</strong> une phrase de refrain qui ne se chante pas facilement est réécrite, même si elle est brillante sur le papier.</li>
+<li><strong>La liste noire.</strong> Interdits lexicaux évolutifs, relus avant chaque séance : <em>diamant sous pression, phénix, cicatrices qui parlent, bolides, billets violets en décor, « la rue m'a élevé », « je viens d'en bas », lion/loup/requin, « on est des guerriers », « ma vie est un film ».</em> Toute formule entendue trois fois ailleurs dans l'année entre dans la liste.</li>
+</ol></section>
+<section id="punchlines-et-storytelling"><header class="sh"><span class="code">Entrée H</span><h2>PUNCHLINES, DOUBLE LECTURE ET STORYTELLING</h2></header><h3>Ce qu'est une punchline chez lui</h3>
+<p>Pas une phrase qui frappe : <strong>une phrase qui retourne.</strong> Elle part d'un mot banal et le fait basculer.</p>
+<p><strong>Exemples de ton</strong> (illustrations de style, pas des paroles validées) :
+- <em>« Trop belge à Paris, trop Paris au bled, trop francophone à Anvers : ma langue maternelle, c'est la traduction. »</em>
+- <em>« On m'a dit d'attendre mon tour. J'ai compris qu'il fallait attendre mon niveau. »</em>
+- <em>« Je t'ai tout donné, me voilà à découvert. »</em> (le compte bancaire et le cœur exposé)
+- <em>« Pas la Seine, la Senne : la mienne coule sous la ville, personne la voit, mais tout le monde marche dessus. »</em>
+- <em>« Septante : chez nous même les chiffres ont refusé de faire comme Paris. »</em></p>
+<h3>La double lecture, systématisée (et dosée)</h3>
+<p>L'idée du fondateur est excellente, à une condition : <strong>la rareté.</strong> Un double sens par couplet devient épuisant. On vise <strong>un double sens majeur par morceau et un secret par album.</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Niveau</th>
+<th>Mécanique</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ligne</td>
+<td>Mot à double sens</td>
+<td>« à découvert »</td>
+</tr>
+<tr>
+<td>Morceau</td>
+<td>Le refrain change de sens une fois le dernier couplet entendu</td>
+<td>« Sauf toi » (voir N)</td>
+</tr>
+<tr>
+<td>Album</td>
+<td><strong>Les initiales des titres épellent le titre de l'album</strong></td>
+<td>L-A-I-S-S-E-Z-P-A-S-S-E-R</td>
+</tr>
+<tr>
+<td>Carrière</td>
+<td>Le symbole dont le niveau monte</td>
+<td>Section J</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Storytelling</h3>
+<p>Structure en trois temps (avant / la porte / après). <strong>Un détail concret par couplet</strong> (une marque de cigarettes du grand-père, un numéro de tram, une odeur) : c'est le détail qui rend une histoire crédible.
+<strong>Règle éthique :</strong> toute histoire présentée à la première personne comme vécue <strong>doit être vraie</strong> ou être clairement un récit (« il », un personnage nommé).</p></section>
+<section id="la-capuche"><header class="sh"><span class="code">Entrée I</span><h2>TROIS CONCEPTS DE CAPUCHE EXCLUSIVE</h2></header><blockquote>
+<p><strong>Le problème à résoudre :</strong> presque toutes les capuches ont la même silhouette, ronde et molle. Un logo ne suffit pas à rendre une capuche reconnaissable. <strong>La forme, si.</strong></p>
+</blockquote>
+<h3>I1. LA CAPUCHE CARRÉE (« Le Sas ») — <span class="chip rec">Recommandé</span></h3>
+<ul>
+<li><strong>Construction :</strong> capuche <strong>trois panneaux</strong> avec un <strong>gousset central de 6 cm</strong>, de la ligne du front jusqu'à la nuque. Un entoilage léger dans la partie haute lui permet de <strong>tenir sa forme</strong>.</li>
+<li><strong>Silhouette :</strong> de face, l'ouverture du visage est <strong>rectangulaire</strong> (un écho direct du symbole). De profil, le bord avant tombe <strong>droit et vertical</strong> et le dessus est <strong>plat</strong>. C'est reconnaissable à 50 mètres, même à contre-jour.</li>
+<li><strong>Détail distinctif n°1, la couture de niveau :</strong> une seule surpiqûre horizontale ton sur ton fait le tour de la capuche à une hauteur précise. <strong>Elle monte à chaque album</strong>, comme la ligne du symbole. Le vêtement porte la chronologie de l'artiste.</li>
+<li><strong>Détail distinctif n°2, le zip en L :</strong> la fermeture est décalée à gauche et tourne à angle droit au col. Elle reprend le tracé des deux traits du symbole.</li>
+<li><strong>Matières :</strong> molleton bouclé lourd (480 à 520 g/m²), fabrication premium (le Portugal est une piste réaliste pour le jersey haut de gamme). <strong>Doublure de capuche en lin de Flandre</strong> : la Belgique est réputée pour son lin. C'est ce qu'on ne voit pas mais qu'on sent.</li>
+<li><strong>Avantages :</strong> élégante, portable, pas de déguisement. Le carré évite le capuchon pointu (risque « assassin de jeu vidéo » ou « moine »).</li>
+<li><strong>Risques :</strong> un entoilage mal dosé donne un effet carton. <em>Solution :</em> trois prototypes à trois rigidités, test au porté pendant un mois.</li>
+<li><strong>Développement :</strong> patronage avec un modéliste. Piste concrète : jeunes diplômés de l'Académie royale des beaux-arts d'Anvers, une école de mode de réputation mondiale.</li>
+</ul>
+<h3>I2. LA CAPUCHE CIRÉE (« Le Batelier »)</h3>
+<ul>
+<li><strong>Concept :</strong> une capuche en <strong>coton ciré lourd</strong> inspirée des bateliers du canal, avec une visière structurée qui projette naturellement une ombre sur les yeux. Le mystère vient de la lumière, sans masque.</li>
+<li><strong>Avantages :</strong> une vraie histoire (le travail sur l'eau, la pluie belge). Fonctionnelle.</li>
+<li><strong>Risques :</strong> la tendance « workwear » est très exploitée, cette capuche seule ne serait pas unique.</li>
+<li><strong>Verdict :</strong> <strong>excellente comme matière de la version d'extérieur</strong> de la capuche carrée (même patronage, autre tissu), pas comme icône principale.</li>
+</ul>
+<h3>I3. LA CAPUCHE AMOVIBLE (« La Porte »)</h3>
+<ul>
+<li><strong>Concept :</strong> une capuche indépendante avec un empiècement d'épaules, qui se porte <strong>sur n'importe quelle tenue</strong> : costume, manteau, maillot de scène.</li>
+<li><strong>Avantages :</strong> une silhouette constante quelle que soit la tenue.</li>
+<li><strong>Risques :</strong> les capuches-écharpes existent déjà dans la mode de luxe. Elle peut faire accessoire de tendance.</li>
+<li><strong>Verdict :</strong> <strong>idée moyenne comme icône.</strong> Utile comme <strong>outil de scène et de clip</strong>, pas comme pièce signature.</li>
+</ul></section>
+<section id="le-symbole"><header class="sh"><span class="code">Entrée J</span><h2>TROIS CONCEPTS DE SYMBOLE</h2></header><figure class="planche"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" font-family="Helvetica, Arial, sans-serif">
+  <rect width="1200" height="760" fill="#E8E4DA"/>
+  <defs>
+    <!-- LE SAS : deux traits en L, deux coins ouverts (entrée / sortie), une ligne de niveau -->
+    <g id="sas-cadre" fill="none" stroke="#1C1C1E" stroke-width="10" stroke-linecap="square">
+      <path d="M15,68 L15,15 L68,15"/>
+      <path d="M85,32 L85,85 L32,85"/>
+    </g>
+  </defs>
+
+  <text x="40" y="52" font-size="22" font-weight="700" fill="#1C1C1E">PISTES DE SYMBOLE</text>
+  <text x="40" y="78" font-size="14" fill="#55524C">Recommandation : J1 « Le Sas ». J2 et J3 sont présentées pour comparaison.</text>
+
+  <!-- J1 -->
+  <g transform="translate(90,110) scale(2)">
+    <use href="#sas-cadre"/>
+    <line x1="32" y1="62" x2="68" y2="62" stroke="#2E9E62" stroke-width="10" stroke-linecap="square"/>
+  </g>
+  <text x="90" y="345" font-size="16" font-weight="700" fill="#1C1C1E">J1 · LE SAS (recommandé)</text>
+  <text x="90" y="367" font-size="13" fill="#55524C">Une chambre d'écluse vue de face : on entre</text>
+  <text x="90" y="384" font-size="13" fill="#55524C">par un coin, on sort par l'autre, plus haut.</text>
+
+  <!-- J2 -->
+  <g transform="translate(480,110) scale(2)" fill="none" stroke="#1C1C1E" stroke-width="10" stroke-linecap="square">
+    <path d="M12,85 L44,22"/>
+    <path d="M88,85 L56,22"/>
+  </g>
+  <text x="480" y="345" font-size="16" font-weight="700" fill="#1C1C1E">J2 · LES PORTES</text>
+  <text x="480" y="367" font-size="13" fill="#55524C">Les deux vantaux busqués d'une écluse.</text>
+  <text x="480" y="384" font-size="13" fill="#55524C">Risque : famille des chevrons, trop vue.</text>
+
+  <!-- J3 -->
+  <g transform="translate(870,110) scale(2)" fill="none" stroke="#1C1C1E" stroke-width="10" stroke-linecap="square">
+    <path d="M8,40 L40,40"/>
+    <path d="M40,62 L60,62"/>
+    <path d="M60,40 L92,40"/>
+  </g>
+  <text x="870" y="345" font-size="16" font-weight="700" fill="#1C1C1E">J3 · LA SENNE</text>
+  <text x="870" y="367" font-size="13" fill="#55524C">La rivière enterrée sous Bruxelles.</text>
+  <text x="870" y="384" font-size="13" fill="#55524C">Trop faible seule → sous-marque album 2.</text>
+
+  <line x1="40" y1="420" x2="1160" y2="420" stroke="#C9C3B5" stroke-width="1"/>
+  <text x="40" y="458" font-size="22" font-weight="700" fill="#1C1C1E">LE SYMBOLE VIVANT : LE NIVEAU MONTE</text>
+  <text x="40" y="484" font-size="14" fill="#55524C">Le cadre ne change jamais. Seule la ligne de niveau monte d'un album à l'autre. Il ne se ferme jamais : les deux coins restent ouverts.</text>
+
+  <g transform="translate(70,515)">
+    <g transform="scale(1.4)"><use href="#sas-cadre"/><line x1="32" y1="66" x2="68" y2="66" stroke="#1C1C1E" stroke-width="10" stroke-linecap="square"/></g>
+    <text x="0" y="170" font-size="14" font-weight="700" fill="#1C1C1E">Album 1 · Laissez-passer</text>
+    <text x="0" y="188" font-size="12" fill="#55524C">niveau bas : l'attente</text>
+  </g>
+  <g transform="translate(350,515)">
+    <g transform="scale(1.4)"><use href="#sas-cadre"/><line x1="32" y1="50" x2="68" y2="50" stroke="#1C1C1E" stroke-width="10" stroke-linecap="square"/></g>
+    <text x="0" y="170" font-size="14" font-weight="700" fill="#1C1C1E">Album 2 · La Senne</text>
+    <text x="0" y="188" font-size="12" fill="#55524C">niveau médian : la pression</text>
+  </g>
+  <g transform="translate(630,515)">
+    <g transform="scale(1.4)"><use href="#sas-cadre"/><line x1="32" y1="34" x2="68" y2="34" stroke="#1C1C1E" stroke-width="10" stroke-linecap="square"/></g>
+    <text x="0" y="170" font-size="14" font-weight="700" fill="#1C1C1E">Album 3 · Embouchure</text>
+    <text x="0" y="188" font-size="12" fill="#55524C">niveau haut : aligné sur la sortie</text>
+  </g>
+  <g transform="translate(910,515)">
+    <g transform="scale(0.95)"><use href="#sas-cadre"/><line x1="32" y1="34" x2="68" y2="34" stroke="#1C1C1E" stroke-width="10" stroke-linecap="square"/></g>
+    <g transform="translate(78,40) scale(0.95)"><use href="#sas-cadre"/><line x1="32" y1="66" x2="68" y2="66" stroke="#1C1C1E" stroke-width="10" stroke-linecap="square"/></g>
+    <text x="0" y="170" font-size="14" font-weight="700" fill="#1C1C1E">Après · L'échelle</text>
+    <text x="0" y="188" font-size="12" fill="#55524C">une nouvelle chambre commence</text>
+  </g>
+</svg>
+<figcaption>Planche du symbole : les trois pistes, puis la ligne de niveau qui monte d'un album à l'autre.</figcaption></figure>
+<h3>Retour sur la proposition « Le Passage »</h3>
+<p>L'intention est juste : des lignes séparées qui se rejoignent pour créer une ouverture. Mais telle qu'elle est formulée, elle reste <strong>trop vague</strong>, et c'est ce flou qui produit des logos génériques. Je l'ai rendue concrète à travers l'écluse.</p>
+<h3>J1. LE SAS — <span class="chip rec">Recommandé</span></h3>
+<ul>
+<li><strong>Forme :</strong> deux traits en L qui dessinent un carré <strong>ouvert à deux coins opposés</strong> (l'entrée en bas à gauche, la sortie en haut à droite), plus <strong>une ligne horizontale intérieure : le niveau d'eau.</strong></li>
+<li><strong>Sens :</strong> on entre par un coin, on attend, le niveau monte, on sort par l'autre coin, <strong>plus haut</strong>. Les épreuves ne sont pas un mur, ce sont une chambre de passage.</li>
+<li><strong>Pourquoi ça marche :</strong> trois traits, une épaisseur unique, ce qui le rend <strong>brodable à 1 cm</strong> et lisible en monochrome. Il fait écho à l'ouverture carrée de la capuche.</li>
+<li><strong>Risques :</strong> à vérifier auprès des bases de marques. Les carrés ouverts existent dans les interfaces (icône de recadrage, de fenêtre) ; <strong>la ligne de niveau est notre élément distinctif</strong>, c'est elle qu'il faut défendre.</li>
+</ul>
+<h3>J2. LES PORTES</h3>
+<ul>
+<li>Deux traits obliques qui se rejoignent presque en V inversé : les <strong>portes busquées</strong> d'une écluse, vues de dessus.</li>
+<li><strong>Verdict honnête :</strong> dynamique mais <strong>trop proche de la famille des chevrons</strong> (logos automobiles, sportifs). Écarté.</li>
+</ul>
+<h3>J3. LA SENNE</h3>
+<ul>
+<li>Une ligne interrompue dont un segment passe <strong>sous</strong> la surface : la rivière enterrée.</li>
+<li><strong>Verdict :</strong> trop faible comme symbole principal. <strong>Parfait comme sous-marque de l'album 2.</strong></li>
+</ul>
+<h3>Le symbole vivant : la version améliorée de l'idée du fondateur</h3>
+<p>L'idée « incomplet → complet sur trois albums » est <strong>la meilleure idée du brief.</strong> Elle a pourtant un défaut : <strong>un symbole complet, c'est une histoire terminée.</strong> Que fait-on au quatrième album ?</p>
+<p><strong>Ma proposition :</strong> le cadre ne change jamais. <strong>La ligne de niveau monte d'un album à l'autre</strong> et le carré <strong>ne se ferme jamais</strong> : les coins restent ouverts, la porte existe toujours.
+- Album 1, niveau bas : l'attente.
+- Album 2, niveau médian : la pression.
+- Album 3, niveau haut, aligné sur la sortie : le passage.
+- Ensuite, <strong>une nouvelle chambre commence</strong>, comme sur une échelle d'écluses. La carrière devient un escalier, sans fin imposée.</p>
+<p>Les fans datent une photo, un vêtement ou une affiche <strong>à la hauteur de la ligne.</strong> La couture de niveau de la capuche suit la même règle.</p></section>
+<section id="direction-vestimentaire"><header class="sh"><span class="code">Entrée K</span><h2>DIRECTION VESTIMENTAIRE</h2></header><p><strong>Principe : un uniforme et une variable.</strong>
+- <strong>Permanent :</strong> la capuche carrée, la couleur vert canal, la couture de niveau, une seule pièce de métal (un anneau ou une boucle en acier brut, pas d'or).
+- <strong>Variable selon l'époque :</strong> la coupe du bas, les matières, une couleur d'accent par album.</p>
+<p><strong>La silhouette :</strong> volume en haut (la capuche structurée), pantalon droit et net, chaussures sobres.
+<strong>Le contraste signature : capuche + tailoring.</strong> Bruxelles est la capitale de l'Europe, avec ses costumes institutionnels à deux rues des quartiers populaires. <strong>Un costume bien coupé porté avec la capuche carrée par-dessous</strong>, c'est « entre les mondes » sans un mot.</p>
+<h3>Palette</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Nom</th>
+<th>Usage</th>
+<th>Teinte indicative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Vert canal</strong></td>
+<td>Couleur signature (à la place du noir)</td>
+<td><code>#3E4A47</code></td>
+</tr>
+<tr>
+<td><strong>Charbon</strong></td>
+<td>Base</td>
+<td><code>#1C1C1E</code></td>
+</tr>
+<tr>
+<td><strong>Craie</strong></td>
+<td>Fond, typographie claire</td>
+<td><code>#E8E4DA</code></td>
+</tr>
+<tr>
+<td><strong>Brique bruxelloise</strong></td>
+<td>Chaleur, décors</td>
+<td><code>#8C4A32</code></td>
+</tr>
+<tr>
+<td><strong>Vert passage</strong></td>
+<td>Accent rare : la lumière verte de l'écluse quand on peut passer</td>
+<td><code>#2E9E62</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Pourquoi pas le noir ?</strong> Toutes les capuches mystérieuses sont noires. Le vert canal est une couleur qu'on peut <strong>posséder</strong>.</p></section>
+<section id="univers-visuel"><header class="sh"><span class="code">Entrée L</span><h2>UNIVERS VISUEL</h2></header><h3>Bruxelles comme personnage, sans cartes postales</h3>
+<ul>
+<li><strong>Refusés :</strong> Atomium, Manneken-Pis, Grand-Place. Ce sont des clichés touristiques.</li>
+<li><strong>Retenus :</strong> le canal et ses écluses, la brique, les <strong>plaques de rue bilingues</strong> (chaque rue a deux noms, « entre les mondes » en image), le métro, l'ombre écrasante du Palais de Justice (le pouvoir), les toits, la pluie.</li>
+</ul>
+<h3>Le surréalisme belge comme méthode, pas comme citation</h3>
+<p>On ne copie pas Magritte. On reprend <strong>l'esprit</strong> : <strong>un seul élément impossible par clip, filmé comme s'il était normal.</strong> L'eau qui monte calmement dans un salon pendant un repas de famille, sans que personne ne réagisse.</p>
+<h3>Grammaire de caméra</h3>
+<ul>
+<li><strong>Mouvements verticaux lents</strong> (le niveau qui monte) plutôt que des travellings horizontaux.</li>
+<li><strong>Cadrages symétriques entre deux murs</strong> (la chambre d'écluse).</li>
+<li><strong>Le plan signature :</strong> dans chaque clip, <strong>un plan de profil à contre-jour</strong> de la capuche carrée. La silhouette seule, deux secondes.</li>
+<li><strong>Le visage :</strong> visible dans les morceaux intimes (registre Le Fond), dans l'ombre de la capuche dans les morceaux de tension, jamais totalement masqué.</li>
+</ul>
+<h3>Les rendez-vous des fans</h3>
+<ul>
+<li>Le symbole caché dans chaque clip (idée du fondateur, validée) : un carrelage, une fenêtre, un ticket, un graffiti.</li>
+<li><strong>Le feu rouge / vert</strong> : chaque clip de l'album 1 contient un feu d'écluse. Rouge dans les premiers clips, vert dans le dernier.</li>
+<li><strong>Les pochettes</strong> : photographie réelle (pas de visuel IA en final), toujours avec une ligne horizontale lisible dans l'image.</li>
+</ul></section>
+<section id="concepts-d-album"><header class="sh"><span class="code">Entrée M</span><h2>TROIS CONCEPTS POUR LE PREMIER ALBUM</h2></header><h3>M1. « ENTRE LES MONDES » (proposition du fondateur)</h3>
+<ul>
+<li><strong>Ce qui est fort :</strong> le thème est exactement le bon (passé/avenir, racines/monde, force/vulnérabilité).</li>
+<li><strong>Ce qui est faible, dit franchement :</strong> <strong>le titre est générique.</strong> De nombreux livres, films et albums s'appellent déjà « Entre deux mondes » ou « Entre les mondes ». Il décrit le sujet au lieu de l'incarner.</li>
+<li><strong>Verdict :</strong> on <strong>garde le thème</strong> et on change de titre.</li>
+</ul>
+<h3>M2. « LAISSEZ-PASSER » — <span class="chip rec">Recommandé</span></h3>
+<ul>
+<li><strong>Concept :</strong> le laissez-passer est le document qui autorise à franchir une frontière. <strong>L'album est un document de voyage entre les mondes</strong> et chaque morceau est un tampon.</li>
+<li><strong>Le secret :</strong> <strong>les initiales des 13 titres épellent L-A-I-S-S-E-Z-P-A-S-S-E-R.</strong></li>
+<li><strong>L'objet :</strong> vinyle et CD conçus comme un laissez-passer administratif, avec des tampons, un numéro de série et une photo d'identité de la capuche de profil. Le billet de concert est un laissez-passer.</li>
+<li><strong>Avantages :</strong> un concept entier qui sert le marketing, l'objet physique, la scène et le secret pour les fans.</li>
+<li><strong>Risques :</strong> la contrainte de l'acrostiche peut pousser à fabriquer du remplissage. <strong>Règle : l'acrostiche est un bonus, jamais une contrainte.</strong> Si un titre ne mérite pas sa place, on casse l'acrostiche.</li>
+</ul>
+<h3>M3. « LA SENNE »</h3>
+<ul>
+<li><strong>Concept :</strong> ce qui coule sous la ville : les invisibles, les secrets de famille, la face cachée de la réussite.</li>
+<li><strong>Verdict :</strong> très fort, mais <strong>trop sombre pour une présentation.</strong> On ne se présente pas au public par ses profondeurs. <strong>C'est le deuxième album.</strong></li>
+</ul>
+<h3>L'arc discographique proposé</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Album</th>
+<th>Titre</th>
+<th>Mouvement</th>
+<th>Niveau du symbole</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>LAISSEZ-PASSER</strong></td>
+<td>Passer : se présenter, franchir</td>
+<td>Bas</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>LA SENNE</strong></td>
+<td>Descendre : le prix du passage, ce qui est caché</td>
+<td>Médian</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>EMBOUCHURE</strong></td>
+<td>Déboucher sur la mer : l'international, l'ouverture</td>
+<td>Haut</td>
+</tr>
+</tbody>
+</table></div>
+<p><em>« Embouchure » a deux sens : l'endroit où le fleuve rejoint la mer, et <strong>la position des lèvres sur le bec d'un saxophone</strong>. Le marqueur sonore n°3 devient le titre.</em></p></section>
+<section id="album-1-laissez-passer"><header class="sh"><span class="code">Entrée N</span><h2>ARCHITECTURE DE « LAISSEZ-PASSER » (13 titres)</h2></header><blockquote>
+<p><strong>Ce n'est pas l'album composé.</strong> C'est la carte : le rôle de chaque morceau dans le parcours. Les titres sont des propositions de travail.</p>
+</blockquote>
+<p><strong>Structure en trois actes, sur le cycle d'une écluse :</strong>
+- <strong>ACTE I — L'ATTENTE</strong> (portes fermées, niveau bas) : titres 1 à 5
+- <strong>ACTE II — LA MONTÉE</strong> (la pression, l'eau qui monte) : titres 6 à 10
+- <strong>ACTE III — LE PASSAGE</strong> (la porte s'ouvre) : titres 11 à 13</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Titre</th>
+<th>Type</th>
+<th>Sujet / concept</th>
+<th>Émotion</th>
+<th>Direction musicale</th>
+<th>Marqueurs</th>
+<th>Message / place dans l'album</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>L</strong>umière rouge</td>
+<td>Ouverture cinématographique</td>
+<td>Le feu rouge de l'écluse : on attend. Une ville, un garçon, une porte fermée.</td>
+<td>Suspense</td>
+<td>Field recording du canal, carillon lointain, cordes, voix parlée (Le Fond). Pas de batterie avant la dernière minute.</td>
+<td>Clang, Carillon, Fond</td>
+<td>Pose le décor et la règle du jeu.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>A</strong>ccent</td>
+<td>Rap, écriture forte</td>
+<td>Avoir un accent partout : trop belge ici, trop parisien là-bas, trop francophone en Flandre.</td>
+<td>Ironie, fierté</td>
+<td>Boom-bap moderne, sax baryton en basse, couplets longs sans refrain classique</td>
+<td>Sax, Sas</td>
+<td><strong>Le manifeste.</strong> Qui il est, en punchlines.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>I</strong>ntérim</td>
+<td>Hip-hop énergique</td>
+<td>Une génération en contrat temporaire, au travail comme dans la vie. « On est tous intérimaires. »</td>
+<td>Rage contenue</td>
+<td>Trap nerveuse, Clang en caisse claire, rap derrière le temps qui rattrape</td>
+<td>Clang, Sas</td>
+<td>Le social sans sermon.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>S</strong>eptante</td>
+<td>Histoire humaine</td>
+<td>Le grand-père (selon la bio retenue) : l'arrivée, la mine ou l'usine, le retour jamais fait.</td>
+<td>Tendresse, deuil</td>
+<td>Soul, guitare acoustique, fanfare lointaine, modes selon les origines retenues</td>
+<td>Carillon, Fond</td>
+<td><strong>Conditionnel : n'existe que si l'histoire est vraie.</strong></td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>S</strong>as</td>
+<td>Expérimental</td>
+<td>Le morceau <strong>est</strong> une écluse. Il commence compressé, en mono, claustrophobe. Les portes se ferment à 1:30 (silence, eau), puis la pression monte en continu jusqu'à l'ouverture.</td>
+<td>Étouffement → libération</td>
+<td>Structure hors format, électronique, New Beat déformée, voix traitée</td>
+<td>Les 5 marqueurs, seule exception autorisée</td>
+<td><strong>La fin de l'Acte I.</strong> Le « morceau-chambre » de l'album.</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>E</strong>lle parle flamand</td>
+<td>Morceau d'amour</td>
+<td>Tomber amoureux de l'autre côté de la frontière linguistique. Refrain bilingue français/néerlandais.</td>
+<td>Émerveillement, maladresse</td>
+<td>R&amp;B lumineux, guitare, harmonies gospel</td>
+<td>Niveau, Fond</td>
+<td>L'amour comme traversée. <strong>Ouvre la Flandre et les Pays-Bas</strong>, un marché que les rappeurs français ne peuvent pas toucher.</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Z</strong>inneke</td>
+<td>International</td>
+<td><em>Zinneke</em> : le Bruxellois métissé, le bâtard fier. Un hymne pour tous ceux qui viennent de plusieurs endroits.</td>
+<td>Fierté joyeuse</td>
+<td>Amapiano ou afrobeats + carillon. <strong>Collaboration</strong> avec un artiste d'une autre scène (Lagos, Johannesburg, Londres)</td>
+<td>Carillon, Sax</td>
+<td>L'ouverture au monde sans perdre Bruxelles.</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>P</strong>as la Seine</td>
+<td>Provocation / ego-trip</td>
+<td>« Pas la Seine, la Senne. » Bruxelles n'est pas une annexe de Paris.</td>
+<td>Défi, humour</td>
+<td>UK garage / 2-step, clin d'œil New Beat</td>
+<td>Clang, Sas</td>
+<td>Provocation <strong>affectueuse</strong>, jamais méprisante envers la France.</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>À</strong> découvert</td>
+<td>R&amp;B émotionnel</td>
+<td>Une relation qui ruine : le découvert bancaire et le cœur exposé.</td>
+<td>Vulnérabilité</td>
+<td>R&amp;B lent, falsetto, pédale de basse</td>
+<td>Fond, Sax</td>
+<td>La double lecture la plus nette de l'album.</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>S</strong>alle d'attente</td>
+<td>Introspectif</td>
+<td>La vie comme salle d'attente : être patient sans devenir passif.</td>
+<td>Doute</td>
+<td>Piano, voix seule, cordes en fin de morceau</td>
+<td>Fond, Carillon</td>
+<td><strong>Le point le plus bas avant la montée finale.</strong></td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>S</strong>auf toi</td>
+<td>Grand morceau mélodique (single phare)</td>
+<td>Le refrain sonne comme une chanson d'amour (« tout le monde est passé, sauf toi »). Le dernier couplet révèle qu'il parle de <strong>son meilleur ami resté derrière.</strong></td>
+<td>Nostalgie, culpabilité</td>
+<td>Pop urbaine, grand refrain, couleur dorienne</td>
+<td>Fond, Sas</td>
+<td><strong>La phrase-charnière de l'album entier.</strong></td>
+</tr>
+<tr>
+<td>12</td>
+<td><strong>E</strong>n crue</td>
+<td>Puissant, destiné à la scène</td>
+<td>L'eau déborde : tout ce qui a été retenu sort.</td>
+<td>Puissance, catharsis</td>
+<td>Hip-hop orchestral, chœurs, registre La Crue</td>
+<td>Clang, Sax, Carillon</td>
+<td>Le morceau que la salle entière crie.</td>
+</tr>
+<tr>
+<td>13</td>
+<td><strong>R</strong>este</td>
+<td>Conclusion</td>
+<td>Un album sur le passage qui finit par « reste ». Deux sens : « ne pars pas » et « ce qui reste » une fois passé.</td>
+<td>Apaisement mélancolique</td>
+<td>Retour au field recording du titre 1. <strong>Le feu passe au vert</strong> dans la dernière seconde.</td>
+<td>Clang, Fond</td>
+<td>Laisse une trace. Le niveau a monté, la porte s'ouvre… et on regarde derrière.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Durée cible :</strong> 42 à 48 minutes. <strong>Singles :</strong> voir section O.</p></section>
+<section id="strategie-de-developpement"><header class="sh"><span class="code">Entrée O</span><h2>STRATÉGIE DE DÉVELOPPEMENT ARTISTIQUE</h2></header><h3>Les étapes</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Durée indicative</th>
+<th>Objectif</th>
+<th>Livrables</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0. Fondations</strong></td>
+<td>Mois 0 à 3</td>
+<td>Savoir qui on crée</td>
+<td>Registre validé, nom vérifié et déposé, sessions vocales, 20 maquettes → 3 retenues, 3 prototypes de capuche</td>
+</tr>
+<tr>
+<td><strong>1. Silence signé</strong></td>
+<td>Mois 3 à 4</td>
+<td>Faire exister le symbole avant la musique</td>
+<td>Contenus courts : une écluse, un feu rouge, la silhouette de profil. <strong>Aucune explication.</strong></td>
+</tr>
+<tr>
+<td><strong>2. Carte d'identité</strong></td>
+<td>Mois 4 à 6</td>
+<td>Définir l'artiste</td>
+<td>Single 1 : <strong>« Accent »</strong>. On ne commence pas par le tube : on commence par <strong>qui il est</strong>.</td>
+</tr>
+<tr>
+<td><strong>3. Élargir</strong></td>
+<td>Mois 6 à 9</td>
+<td>Toucher le grand public</td>
+<td>Single 2 : <strong>« Sauf toi »</strong> + clip (le plan signature, l'élément surréaliste)</td>
+</tr>
+<tr>
+<td><strong>4. Ouvrir</strong></td>
+<td>Mois 9 à 12</td>
+<td>Premier signal international</td>
+<td>Single 3 : <strong>« Zinneke »</strong> + collaboration. Version FR/NL d'« Elle parle flamand » pour la Flandre.</td>
+</tr>
+<tr>
+<td><strong>5. Album 1</strong></td>
+<td>Mois 12 à 15</td>
+<td>L'œuvre complète</td>
+<td><em>LAISSEZ-PASSER</em>, objet physique en forme de document, révélation de l'acrostiche par les fans (ne jamais l'annoncer)</td>
+</tr>
+<tr>
+<td><strong>6. Scène</strong></td>
+<td>Mois 15 à 24</td>
+<td>Devenir indispensable en live</td>
+<td>Scénographie de chambre d'écluse (voir ci-dessous), festivals belges puis francophones</td>
+</tr>
+<tr>
+<td><strong>7. Collaborations</strong></td>
+<td>En continu</td>
+<td>Uniquement pertinentes</td>
+<td>Règle : <strong>une collaboration doit rendre possible un morceau impossible seul.</strong></td>
+</tr>
+<tr>
+<td><strong>8. International</strong></td>
+<td>Années 2 à 3</td>
+<td>Cercles concentriques</td>
+<td>Belgique → France, Suisse, Québec → Afrique francophone (Kinshasa, Abidjan, Dakar, Casablanca) → Flandre et Pays-Bas → Royaume-Uni → reste du monde</td>
+</tr>
+<tr>
+<td><strong>9. Album 2</strong></td>
+<td>Années 2 à 3</td>
+<td>Évolution</td>
+<td><em>LA SENNE</em> : plus sombre, plus audacieux. Le niveau du symbole monte.</td>
+</tr>
+</tbody>
+</table></div>
+<h3>La scène (concept)</h3>
+<p>Deux murs mobiles forment une chambre d'écluse sur scène. <strong>Une ligne lumineuse horizontale monte pendant tout le concert.</strong> Le show s'ouvre sur <strong>un feu rouge</strong> et se termine au moment où <strong>le feu passe au vert</strong>. Le public voit littéralement le niveau monter.</p>
+<h3>Le risque stratégique principal</h3>
+<p><strong>La comparaison avec Stromae</strong> (belge, conceptuel, intelligent). Contre-mesures : aucune chorégraphie théâtrale, aucun personnage costumé, une base rap/R&amp;B toujours dominante, et la rue et le canal plutôt que la chanson à texte.</p></section>
+<section id="studio-assiste-par-l-ia"><header class="sh"><span class="code">Entrée P</span><h2>ARCHITECTURE DE TRAVAIL : LE STUDIO ASSISTÉ PAR L'IA</h2></header><h3>Principe</h3>
+<p><strong>L'IA est l'équipe de travail. Elle n'est jamais le juge final, ni l'auteur final.</strong> Le performeur écrit et chante ; l'IA cherche, propose, challenge, organise et vérifie.</p>
+<h3>La boucle de production</h3>
+<p>Elle reprend la boucle cognitive du fondateur (observer → comprendre → … → réviser → dreaming), appliquée à chaque morceau :</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Étape</th>
+<th>Application au studio</th>
+<th>Outil / rôle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Observer</strong></td>
+<td>Carnet de rue, veille musicale, écoute de ce qui sort</td>
+<td>Humain + IA (synthèses de veille)</td>
+</tr>
+<tr>
+<td><strong>Comprendre</strong></td>
+<td>Relire le Registre : ce morceau sert-il l'artiste ?</td>
+<td>Le Registre (ce document)</td>
+</tr>
+<tr>
+<td><strong>Confronter</strong></td>
+<td>La serrure tient-elle ? Existe-t-il déjà un morceau semblable ?</td>
+<td>IA en sparring critique</td>
+</tr>
+<tr>
+<td><strong>Hypothèses</strong></td>
+<td>3 angles d'écriture, 3 directions de production</td>
+<td>Humain + IA</td>
+</tr>
+<tr>
+<td><strong>Anticiper / prioriser</strong></td>
+<td>Quel rôle dans l'album ? Quel potentiel ?</td>
+<td>DA</td>
+</tr>
+<tr>
+<td><strong>Décider</strong></td>
+<td>Lancer la maquette ?</td>
+<td><strong>DA + contrôle droits</strong></td>
+</tr>
+<tr>
+<td><strong>Simuler</strong></td>
+<td>Maquette rapide (le « bac à sable »)</td>
+<td>DAW, voix guide</td>
+</tr>
+<tr>
+<td><strong>Exécuter / revue humaine</strong></td>
+<td>Production réelle si la grille est validée ; sinon retour en écriture</td>
+<td>Producteur, ingénieur</td>
+</tr>
+<tr>
+<td><strong>Mesurer</strong></td>
+<td>Grille qualité + test des 5 secondes</td>
+<td>Panel d'écoute</td>
+</tr>
+<tr>
+<td><strong>Apprendre / réviser</strong></td>
+<td>Mettre à jour la liste noire, les marqueurs, le Registre</td>
+<td>Versionnage de ce document</td>
+</tr>
+<tr>
+<td><strong>Dreaming</strong></td>
+<td>Une fois par mois : audit de cohérence, idées hors cadre</td>
+<td>Session dédiée</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Contrôle qualité : la grille</h3>
+<p>Chaque morceau est noté de 1 à 10 sur les 8 critères du brief : <strong>originalité, qualité musicale, écriture, force émotionnelle, mémorisation, cohérence avec l'artiste, potentiel international, qualité de production.</strong>
+- <strong>Seuil de sortie :</strong> aucun critère sous 7, moyenne ≥ 8.
+- <strong>Le test des 5 secondes :</strong> 5 secondes au hasard, écoutées par 10 personnes qui connaissent les morceaux précédents. Il faut au moins 6 reconnaissances sur 10 à partir du deuxième single.
+- <strong>Règle d'or :</strong> <em>« Ne jamais confondre une bonne production technique avec une bonne œuvre. »</em> Un morceau parfaitement mixé sans serrure est rejeté.</p>
+<h3>Outils accessibles (budget de départ maîtrisé)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Besoin</th>
+<th>Outil recommandé</th>
+<th>Remarque</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Production</td>
+<td><strong>Reaper</strong> (licence peu chère) ou Ableton / FL Studio</td>
+<td>Choisir celui que le producteur maîtrise déjà</td>
+</tr>
+<tr>
+<td>Prise de voix</td>
+<td>Un micro dynamique ou à large membrane correct + carte son 2 entrées + <strong>traitement acoustique de la pièce</strong></td>
+<td>La pièce compte plus que le micro</td>
+</tr>
+<tr>
+<td>Field recordings</td>
+<td>Un enregistreur portable</td>
+<td>Pour LE CLANG : demander l'autorisation au gestionnaire du canal avant d'enregistrer à une écluse</td>
+</tr>
+<tr>
+<td>Séparation de pistes</td>
+<td>Demucs (open source)</td>
+<td>Analyse et apprentissage uniquement, jamais pour sampler sans droits</td>
+</tr>
+<tr>
+<td>Écriture</td>
+<td>Assistant IA (comme celui-ci) en <strong>sparring</strong> : contradiction, recherche de rimes, vérification des clichés</td>
+<td>Il ne livre jamais un texte final</td>
+</tr>
+<tr>
+<td>Idéation musicale</td>
+<td>Générateurs de musique IA : <strong>uniquement pour des croquis internes</strong></td>
+<td>Leurs conditions d'utilisation et leur situation juridique évoluent. <strong>Aucune sortie officielle sans vérification des droits.</strong></td>
+</tr>
+<tr>
+<td>Moodboards</td>
+<td>Générateurs d'images IA pour explorer</td>
+<td><strong>Photos finales réelles.</strong> Pas de visuel IA sur une pochette.</td>
+</tr>
+<tr>
+<td>Organisation</td>
+<td>Ce dépôt Git : Registre versionné, une fiche par morceau</td>
+<td>Historique de chaque décision</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Droits et protection (Belgique)</h3>
+<ul>
+<li><strong>Nom et symbole :</strong> dépôt au <strong>BOIP</strong> (Benelux), puis <strong>EUIPO</strong> (Union européenne), puis extension internationale via le système de Madrid (<strong>OMPI/WIPO</strong>) selon le développement.</li>
+<li><strong>Auteurs et compositeurs :</strong> inscription à la <strong>SABAM</strong>.</li>
+<li><strong>Droits voisins :</strong> <strong>PlayRight</strong> (artistes-interprètes) et <strong>SIMIM</strong> (producteurs).</li>
+<li><strong>Contrats écrits</strong> avec chaque producteur, beatmaker, auteur, musicien et designer : <em>split sheets</em> signées <strong>le jour de la session</strong>, pas après le succès.</li>
+<li><strong>Voix :</strong> contrat spécifique si un modèle vocal est entraîné sur la voix du performeur (usage, durée, propriété, suppression).</li>
+</ul></section>
+<section id="decisions-a-prendre"><header class="sh"><span class="code">Entrée Q</span><h2>CE QUI RESTE À DÉCIDER (par ordre de priorité)</h2></header><ol>
+<li><strong>Décision n°0 :</strong> performeur humain réel ? (Recommandation : oui.)</li>
+<li><strong>La biographie :</strong> laquelle des trois grilles correspond à la vraie histoire ?</li>
+<li><strong>Le nom :</strong> ÉCLUSE ou SENNE, après vérification d'antériorité.</li>
+<li><strong>Klyo et Ramzes :</strong> une phrase du fondateur sur ce qu'il en retient.</li>
+<li><strong>Le symbole :</strong> valider LE SAS, puis faire une recherche de similarité de marques.</li>
+<li><strong>La capuche :</strong> lancer les 3 prototypes de rigidité.</li>
+<li><strong>Le titre d'album :</strong> valider <em>LAISSEZ-PASSER</em> et l'arc des trois albums.</li>
+</ol>
+<hr />
+<p><em>Version 0.1. Ce document doit être contredit, raturé et réécrit. Un registre où plus rien ne s'écrit, c'est une écluse fermée pour toujours.</em></p></section>
+  </main>
+</div>
+
+<footer><div class="wrap"><span>Le Registre de l'Éclusier · v0.1</span><span>Un registre où plus rien ne s'écrit, c'est une écluse fermée pour toujours.</span></div></footer>
+
+<script>
+(function () {
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+  if (!('IntersectionObserver' in window) || !links.length) return;
+  var map = {};
+  links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        links.forEach(function (a) { a.classList.remove('on'); });
+        var a = map[e.target.id]; if (a) a.classList.add('on');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  document.querySelectorAll('main section').forEach(function (s) { io.observe(s); });
+})();
+</script>
