@@ -1,4 +1,4 @@
-# LE REGISTRE DE L'ÉCLUSIER — v0.1
+# LE REGISTRE DE L'ÉCLUSIER — v0.2
 
 > *Le registre, c'est le cahier où l'éclusier note chaque passage : qui est passé, quand, à quel niveau. Celui-ci note qui est cet artiste, et chaque décision qui le fait monter.*
 
@@ -15,7 +15,7 @@
 
 | Élément | Recommandation | Statut |
 |---|---|---|
-| Nom d'artiste | **ÉCLUSE** (alternative forte : SENNE) | À valider + vérification juridique |
+| Nom d'artiste | **ÉCLUSE** | DÉCIDÉ (vérification juridique à faire) |
 | Ancrage | Bruxelles, **le canal** comme territoire symbolique | Bruxelles DÉCIDÉ / le canal RECOMMANDÉ |
 | Biographie | Trois pistes, à choisir selon **la vraie vie du performeur** | À VALIDER (décision n°0) |
 | Archétype | **L'Éclusier** : celui qui sait quand ça passe | RECOMMANDÉ |
@@ -61,24 +61,26 @@ Le brief dit : *« pas un simple personnage qui génère des chansons avec l'IA 
 
 ---
 
-## B. TROIS NOMS D'ARTISTE
+## B. NOM D'ARTISTE : ÉCLUSE
 
-> ⚠️ Aucun de ces noms n'a été vérifié juridiquement. Avant toute utilisation publique, il faut une recherche d'antériorité : BOIP (Benelux), EUIPO, WIPO, Spotify, Apple Music, Instagram, TikTok, YouTube et les noms de domaine.
+> **Décidé par le fondateur le 12 novembre 2026 : l'artiste s'appelle ÉCLUSE.**
+>
+> Une première recherche web, le jour de la décision, n'a trouvé aucun artiste établi sous ce nom. **Ce n'est pas une vérification juridique.** Avant toute utilisation publique, il faut une recherche d'antériorité : BOIP (Benelux), EUIPO, WIPO, Spotify, Apple Music, Instagram, TikTok, YouTube et les noms de domaine. Il faut ensuite déposer la marque au BOIP, puis à l'EUIPO.
 
-### B1. ÉCLUSE — ✅ RECOMMANDÉ
+### B1. ÉCLUSE — ✅ DÉCIDÉ
 - **Pourquoi c'est intéressant :** une écluse **t'enferme pour te faire monter**. C'est exactement l'idée du fondateur (« les épreuves deviennent le chemin »), mais dans un objet réel, concret, filmable. On n'a plus besoin d'une métaphore abstraite.
 - **Ce qui le rend différent :** aucun nom du rap francophone ne vient de l'ingénierie hydraulique. Le nom est ancré dans Bruxelles : le canal Bruxelles-Charleroi traverse la ville et sépare symboliquement des quartiers et des mondes sociaux.
 - **Avantages :** tout l'univers en découle (symbole, capuche, scénographie, album). La prononciation est possible en anglais (« ay-klooz »). On entend un écho de *exclusive* et de *eclipse*.
 - **Risques :** le mot sonne technique, un peu froid. *Mitigation :* l'écrire en capitales (ÉCLUSE) et laisser le public trouver un diminutif (« Clu »). Ne jamais expliquer le nom trop tôt : laisser la devise faire le travail.
 - **Développement :** premier contenu public, une seule image (une écluse, un feu rouge) avec la devise. Pas d'explication.
 
-### B2. SENNE — alternative forte
+### B2. SENNE — non retenu comme nom, gardé pour l'album 2
 - **Pourquoi :** la Senne est la rivière de Bruxelles, **enterrée** sous la ville au XIXᵉ siècle. Elle coule toujours, invisible. C'est le mystère, la capuche, ce qui est caché sous la surface.
 - **Différence :** « Senne » se prononce comme **« scène »**. Chaque affiche fait un double sens (« SENNE en concert »). La confusion avec la Seine devient une provocation identitaire : *« Pas la Seine. La Senne. »*
 - **Risques :** on va le confondre avec la Seine, donc avec Paris, le contraire de l'effet voulu. Le jeu de mots peut s'user.
 - **Recommandation :** **garder SENNE comme titre du deuxième album** plutôt que comme nom d'artiste. La phrase « Pas la Seine, la Senne » devient un morceau de l'album 1 (voir section N).
 
-### B3. ORÉE
+### B3. ORÉE — écarté
 - **Pourquoi :** l'orée, c'est la lisière, le seuil entre deux mondes. Le mot est court, beau, facile à prononcer partout (« o-ré »).
 - **Risques :** trop doux pour le rap, plus « chanteuse folk » que « rappeur ». Le nom est probablement déjà pris par de petits projets.
 - **Verdict honnête :** **idée moyenne pour ce projet.** Elle porte le thème mais pas le caractère. Je la garde comme option de repli ou comme nom d'un label maison.
@@ -481,7 +483,7 @@ Chaque morceau est noté de 1 à 10 sur les 8 critères du brief : **originalit�
 
 1. **Décision n°0 :** performeur humain réel ? (Recommandation : oui.)
 2. **La biographie :** laquelle des trois grilles correspond à la vraie histoire ?
-3. **Le nom :** ÉCLUSE ou SENNE, après vérification d'antériorité.
+3. **Le nom :** **ÉCLUSE, décidé le 12 novembre 2026.** Reste à faire : la recherche d'antériorité et le dépôt de la marque.
 4. **Klyo et Ramzes :** une phrase du fondateur sur ce qu'il en retient.
 5. **Le symbole :** valider LE SAS, puis faire une recherche de similarité de marques.
 6. **La capuche :** lancer les 3 prototypes de rigidité.
@@ -489,4 +491,12 @@ Chaque morceau est noté de 1 à 10 sur les 8 critères du brief : **originalit�
 
 ---
 
-*Version 0.1. Ce document doit être contredit, raturé et réécrit. Un registre où plus rien ne s'écrit, c'est une écluse fermée pour toujours.*
+## JOURNAL DES PASSAGES
+
+| Date | Décision | Par |
+|---|---|---|
+| 12 novembre 2026 | Le nom d'artiste est **ÉCLUSE** | Le fondateur |
+
+---
+
+*Version 0.2. Ce document doit être contredit, raturé et réécrit. Un registre où plus rien ne s'écrit, c'est une écluse fermée pour toujours.*
